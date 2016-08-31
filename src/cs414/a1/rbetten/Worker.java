@@ -14,9 +14,12 @@ public class Worker {
 	{
 		this.name = name;
 		
-		for (Qualification qual : qualifications)
+		if(qualifications.size() > 0)
 		{
-			isQualifiedFor.add(qual);
+			for (Qualification qual : qualifications)
+			{
+				isQualifiedFor.add(qual);
+			}
 		}
 	}
 	
@@ -37,7 +40,10 @@ public class Worker {
 	
 	public void setSalary(double s)
 	{
-		salary = s;
+		if(s > 0.00)
+		{
+			salary = s;
+		}
 	}
 	
 	public HashSet<Qualification> getQualifications()

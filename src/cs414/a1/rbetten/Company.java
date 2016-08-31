@@ -8,9 +8,9 @@ public class Company {
 	private HashSet<Worker> assignedPool = new HashSet<Worker>();
 	private HashSet<Project> workingOn = new HashSet<Project>();
 	
-	public Company(String _name)
+	public Company(String name)
 	{
-		name = _name;
+		this.name = name;
 	}
 	
 	public String getName()
@@ -39,6 +39,7 @@ public class Company {
 				unassignedPool.add(availableWorker);
 			}
 		}
+		
 		return unassignedPool;
 	}
 	
