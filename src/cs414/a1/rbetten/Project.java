@@ -1,29 +1,21 @@
+package cs414.a1.rbetten;
+
 import java.util.*;
 
 public class Project {
 	
 	private String name;
-	private static ProjectSize size;
-	private static ProjectStatus status;
+	private ProjectSize size;
+	private ProjectStatus status;
 	
-	private HashSet<Qualification> requires;
-	private HashSet<Worker> workersOnProject;
-	
-	
-	public Project()
+	private HashSet<Qualification> requires = new HashSet<Qualification>();
+	private HashSet<Worker> workersOnProject = new HashSet<Worker>();
+		
+	public Project(String name, ProjectSize size, ProjectStatus status)
 	{
-		name = "";
-		size = ProjectSize.LARGE;
-		status = ProjectStatus.SUSPENDED;
-	}
-	
-	public Project(String _name, ProjectSize _size, ProjectStatus _status)
-	{
-		name = _name;
-		size = _size;
-		status = _status;
-		requires = new HashSet<Qualification>();
-		workersOnProject = new HashSet<Worker>();
+		this.name = name;
+		this.size = size;
+		this.status = status;
 	}
 	
 	public String getName()
@@ -90,11 +82,14 @@ public class Project {
 	
 	public boolean isHelpful(Worker w)
 	{
-		for( Qualification q : w.getQualifications() )
+		if(w != null)
 		{
-			if ( missingQualifications().contains(q) )
+			for( Qualification workerQualification : w.getQualifications() )
 			{
-				return true;
+				if ( missingQualifications().contains(workerQualification) )
+				{
+					return true;
+				}
 			}
 		}
 		return false;
@@ -102,22 +97,31 @@ public class Project {
 	
 	public void addQualification(Qualification q)
 	{
-		requires.add(q);
-	}
-	
-	public void addWorker(Worker w)
-	{
-		if( isHelpful(w) )
+		if (q != null)
 		{
-			workersOnProject.add(w);
+			requires.add(q);
 		}
 	}
 	
-	public void removeWorker(Worker w)
+	public void assignWorker(Worker w)
 	{
-		if( workersOnProject.contains(w) )
+		if (w != null)
 		{
-			workersOnProject.remove(w);
+			if( isHelpful(w) )
+			{
+				workersOnProject.add(w);
+			}
+		}
+	}
+	
+	public void unassignWorker(Worker w)
+	{
+		if(w != null)
+		{
+			if( workersOnProject.contains(w) )
+			{
+				workersOnProject.remove(w);
+			}
 		}
 	}
 }

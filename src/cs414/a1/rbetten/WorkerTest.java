@@ -1,3 +1,5 @@
+package cs414.a1.rbetten;
+
 import java.util.HashSet;
 
 import org.junit.Assert;

@@ -1,13 +1,12 @@
+package cs414.a1.rbetten;
 
 public class Qualification {
 
 	public String description;
-	public Qualification()
-	{}
 	
-	public Qualification(String q)
+	public Qualification(String description)
 	{
-		description = q;
+		this.description = description;
 	}
 	
 	@Override

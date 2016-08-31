@@ -1,3 +1,4 @@
+package cs414.a1.rbetten;
 import java.util.HashSet;
 
 import org.junit.Assert;
@@ -13,7 +14,6 @@ public class CompanyTest {
 	@Before
 	public void setUp() throws Exception 
 	{
-		
 		HashSet<Qualification> qualifications = new HashSet<Qualification>();
 		qualifications.add(new Qualification("Program"));
 		qualifications.add(new Qualification("Plan"));
