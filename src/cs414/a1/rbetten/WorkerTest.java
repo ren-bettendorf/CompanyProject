@@ -30,16 +30,8 @@ public class WorkerTest {
 
 		Project lProject1 = new Project("LargeProject 1", ProjectSize.LARGE, ProjectStatus.PLANNED);
 		Project lProject2 = new Project("LargeProject 2", ProjectSize.LARGE, ProjectStatus.PLANNED);
-		Project lProject3 = new Project("LargeProject 3", ProjectSize.LARGE, ProjectStatus.PLANNED);
-		
+		Project lProject3 = new Project("LargeProject 3", ProjectSize.LARGE, ProjectStatus.PLANNED);	
 		Project mProject1 = new Project("MediumProject 1", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
-		Project mProject2 = new Project("MediumProject 2", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
-		Project mProject3 = new Project("MediumProject 3", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
-		
-
-		Project sProject1 = new Project("SmallProject 1", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
-		Project sProject2 = new Project("SmallProject 2", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
-		Project sProject3 = new Project("SmallProject 3", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
 		
 		// Ensure almost maxed out projects assigned
 		wWill.assignProject(lProject1);
