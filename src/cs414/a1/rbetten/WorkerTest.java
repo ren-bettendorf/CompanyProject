@@ -28,18 +28,29 @@ public class WorkerTest {
 		wTina.setSalary(10000);
 		wNoah = new Worker("Noah", qualifications);
 
-		Project lProject1 = new Project("LargeProject 1", ProjectSize.LARGE, ProjectStatus.ACTIVE);
-		Project lProject2 = new Project("LargeProject 2", ProjectSize.LARGE, ProjectStatus.ACTIVE);
-		Project lProject3 = new Project("LargeProject 3", ProjectSize.LARGE, ProjectStatus.ACTIVE);
+		Project lProject1 = new Project("LargeProject 1", ProjectSize.LARGE, ProjectStatus.PLANNED);
+		Project lProject2 = new Project("LargeProject 2", ProjectSize.LARGE, ProjectStatus.PLANNED);
+		Project lProject3 = new Project("LargeProject 3", ProjectSize.LARGE, ProjectStatus.PLANNED);
 		
-		Project mProject1 = new Project("MediumProject 1", ProjectSize.MEDIUM, ProjectStatus.ACTIVE);
-		Project mProject2 = new Project("MediumProject 2", ProjectSize.MEDIUM, ProjectStatus.ACTIVE);
-		Project mProject3 = new Project("MediumProject 3", ProjectSize.MEDIUM, ProjectStatus.ACTIVE);
+		Project mProject1 = new Project("MediumProject 1", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
+		Project mProject2 = new Project("MediumProject 2", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
+		Project mProject3 = new Project("MediumProject 3", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
 		
 
-		Project sProject1 = new Project("SmallProject 1", ProjectSize.MEDIUM, ProjectStatus.ACTIVE);
-		Project sProject2 = new Project("SmallProject 2", ProjectSize.MEDIUM, ProjectStatus.ACTIVE);
-		Project sProject3 = new Project("SmallProject 3", ProjectSize.MEDIUM, ProjectStatus.ACTIVE);
+		Project sProject1 = new Project("SmallProject 1", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
+		Project sProject2 = new Project("SmallProject 2", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
+		Project sProject3 = new Project("SmallProject 3", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
+		
+		// Ensure almost maxed out projects assigned
+		wWill.assignProject(lProject1);
+		wWill.assignProject(lProject2);
+		wWill.assignProject(lProject3);
+		wWill.assignProject(mProject1);
+		
+		lProject1.setStatus(ProjectStatus.ACTIVE);
+		lProject2.setStatus(ProjectStatus.ACTIVE);
+		lProject3.setStatus(ProjectStatus.ACTIVE);
+		mProject1.setStatus(ProjectStatus.ACTIVE);
 	}
 	
 	@Test
@@ -63,15 +74,24 @@ public class WorkerTest {
 	}
 
 	@Test
-	public void testWorkerStringQualification()
-	{
-		Assert.assertTrue(true);
-	}
-
-	@Test
 	public void testAddQualification()
 	{
-		Assert.assertTrue(true);
+		Qualification qual = new Qualification("Qualification");
+		HashSet<Qualification> originalQuals = new HashSet<Qualification>();
+		for(Qualification q : wWill.getQualifications())
+		{
+			originalQuals.add(q);
+		}
+		wWill.addQualification(qual);
+		HashSet<Qualification> willQuals = wWill.getQualifications();
+		Assert.assertFalse(originalQuals.equals(willQuals));
+		
+		originalQuals.add(qual);
+			
+		wWill.addQualification(qual);
+		willQuals = wWill.getQualifications();
+		
+		Assert.assertTrue(originalQuals.equals(willQuals));
 	}
 
 	@Test
@@ -86,14 +106,23 @@ public class WorkerTest {
 	@Test
 	public void testToString()
 	{
-		Assert.assertTrue(wWill.toString().equals("Will:0:3:0.00"));
+		Assert.assertTrue(wNoah.toString().equals("Noah:0:3:0.00"));
 		Assert.assertTrue(wTina.toString().equals("Tina:0:3:10000.00"));
 	}
 
 	@Test
 	public void testWillOverload()
 	{
+		Project sProject1 = new Project("SmallProject 1", ProjectSize.SMALL, ProjectStatus.PLANNED);
+		sProject1.setStatus(ProjectStatus.ACTIVE);
+
+		Assert.assertFalse(wWill.willOverload(sProject1));
 		
+		wWill.assignProject(sProject1);
+		Project sProject2 = new Project("SmallProject 2", ProjectSize.SMALL, ProjectStatus.PLANNED);
+		sProject2.setStatus(ProjectStatus.ACTIVE);
+		
+		Assert.assertTrue(wWill.willOverload(sProject2));
 	}
 
 }

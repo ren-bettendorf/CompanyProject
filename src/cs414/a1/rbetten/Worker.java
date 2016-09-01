@@ -57,7 +57,7 @@ public class Worker {
 	public void addQualification(Qualification q)
 	{
 		// Ensures a null qualification is not added
-		if (q != null)
+		if (q != null && !isQualifiedFor.contains(q))
 		{
 			isQualifiedFor.add(q);
 		}
