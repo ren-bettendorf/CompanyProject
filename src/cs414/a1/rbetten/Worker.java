@@ -1,11 +1,12 @@
 package cs414.a1.rbetten;
 
+import java.text.DecimalFormat;
 import java.util.*;
 
 public class Worker {
 
 	private String name;
-	private double salary = 0.00;
+	private String salary;
 	
 	private HashSet<Qualification> isQualifiedFor = new HashSet<Qualification>();
 	private HashSet<Project> assignedTo = new HashSet<Project>();
@@ -13,6 +14,7 @@ public class Worker {
 	public Worker(String name, HashSet<Qualification> qualifications)
 	{
 		this.name = name;
+		this.salary = "0.00";
 		
 		if(qualifications.size() > 0)
 		{
@@ -30,7 +32,7 @@ public class Worker {
 	
 	public double getSalary()
 	{
-		return salary;
+		return Double.valueOf(salary);
 	}
 	
 	public HashSet<Project> getAssignedTo()
@@ -40,9 +42,9 @@ public class Worker {
 	
 	public void setSalary(double s)
 	{
-		if(s > 0.00)
+		if(s >= 0.00)
 		{
-			salary = s;
+			salary = formatDouble(s);
 		}
 	}
 	
@@ -85,7 +87,7 @@ public class Worker {
 	@Override
 	public String toString()
 	{
-		return name + ":" + assignedTo.size() + ":" + isQualifiedFor.size() + ":" + (int)salary;
+		return name + ":" + assignedTo.size() + ":" + isQualifiedFor.size() + ":" + salary;
 	}
 	
 	/** Checks to see if adding a Project to the workers will overload considering only ACTIVE projects
@@ -163,5 +165,11 @@ public class Worker {
 		}
 		
 		return mult;
+	}
+	
+	private String formatDouble(double d)
+	{
+		DecimalFormat decimalFormatter = new DecimalFormat("#.00");
+		return decimalFormatter.format(d);
 	}
 }

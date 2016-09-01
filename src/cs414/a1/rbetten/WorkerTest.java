@@ -23,10 +23,30 @@ public class WorkerTest {
 		qualifications.add(new Qualification("Plan"));
 		qualifications.add(new Qualification("Testing"));
 		
-		wWill = new Worker("Will", new HashSet<Qualification>());
+		wWill = new Worker("Will", qualifications);
 		wTina = new Worker("Tina", qualifications);
 		wTina.setSalary(10000);
 		wNoah = new Worker("Noah", qualifications);
+	}
+	
+	@Test
+	public void testSetSalary()
+	{
+		double negative = -1.00;
+		double zero = 0.00;
+		
+		// Testing default salary
+		Assert.assertTrue(wWill.getSalary() == zero);
+		// Testing set salary correct
+		Assert.assertTrue(wTina.getSalary() == 10000);
+		
+		// Testing negative setSalary();
+		wNoah.setSalary(negative);
+		Assert.assertFalse(wNoah.getSalary() == negative);
+		
+		// Testing too many decimal places.
+		wWill.setSalary(100.0005);
+		Assert.assertTrue(wWill.getSalary() == 100.00);
 	}
 
 	@Test
@@ -53,8 +73,8 @@ public class WorkerTest {
 	@Test
 	public void testToString()
 	{
-		Assert.assertTrue(wWill.toString().equals("Will:0:0:0"));
-		Assert.assertTrue(wTina.toString().equals("Tina:0:3:10000"));
+		Assert.assertTrue(wWill.toString().equals("Will:0:3:0.00"));
+		Assert.assertTrue(wTina.toString().equals("Tina:0:3:10000.00"));
 	}
 
 	@Test
