@@ -27,6 +27,19 @@ public class WorkerTest {
 		wTina = new Worker("Tina", qualifications);
 		wTina.setSalary(10000);
 		wNoah = new Worker("Noah", qualifications);
+
+		Project lProject1 = new Project("LargeProject 1", ProjectSize.LARGE, ProjectStatus.ACTIVE);
+		Project lProject2 = new Project("LargeProject 2", ProjectSize.LARGE, ProjectStatus.ACTIVE);
+		Project lProject3 = new Project("LargeProject 3", ProjectSize.LARGE, ProjectStatus.ACTIVE);
+		
+		Project mProject1 = new Project("MediumProject 1", ProjectSize.MEDIUM, ProjectStatus.ACTIVE);
+		Project mProject2 = new Project("MediumProject 2", ProjectSize.MEDIUM, ProjectStatus.ACTIVE);
+		Project mProject3 = new Project("MediumProject 3", ProjectSize.MEDIUM, ProjectStatus.ACTIVE);
+		
+
+		Project sProject1 = new Project("SmallProject 1", ProjectSize.MEDIUM, ProjectStatus.ACTIVE);
+		Project sProject2 = new Project("SmallProject 2", ProjectSize.MEDIUM, ProjectStatus.ACTIVE);
+		Project sProject3 = new Project("SmallProject 3", ProjectSize.MEDIUM, ProjectStatus.ACTIVE);
 	}
 	
 	@Test
@@ -80,7 +93,7 @@ public class WorkerTest {
 	@Test
 	public void testWillOverload()
 	{
-		Assert.assertTrue(true);
+		
 	}
 
 }

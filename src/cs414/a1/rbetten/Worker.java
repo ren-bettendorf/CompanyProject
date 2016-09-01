@@ -40,11 +40,12 @@ public class Worker {
 		return assignedTo;
 	}
 	
-	public void setSalary(double s)
+	public void setSalary(double salary)
 	{
-		if(s >= 0.00)
+		// Ensures worker can never have a negative salary
+		if(salary >= 0.00)
 		{
-			salary = formatDouble(s);
+			this.salary = formatDouble(salary);
 		}
 	}
 	
@@ -55,6 +56,7 @@ public class Worker {
 	
 	public void addQualification(Qualification q)
 	{
+		// Ensures a null qualification is not added
 		if (q != null)
 		{
 			isQualifiedFor.add(q);
@@ -119,9 +121,11 @@ public class Worker {
 	 */
 	public void assignProject(Project p)
 	{
+		// Ensures a null project is not added
 		if (p != null)
 		{
-			if( !willOverload(p) )
+			ProjectStatus status = p.getStatus();
+			if( !willOverload(p) && !(status == ProjectStatus.ACTIVE || status == ProjectStatus.FINISHED ) );
 			{
 				assignedTo.add(p);
 			}
@@ -130,6 +134,7 @@ public class Worker {
 	
 	public void unassignProject(Project p)
 	{
+		// Ensures a null project is not added
 		if (p != null)
 		{
 			if( assignedTo.contains(p) )
@@ -167,6 +172,7 @@ public class Worker {
 		return mult;
 	}
 	
+	// Formats string to ensure 2 decimal places
 	private String formatDouble(double d)
 	{
 		DecimalFormat decimalFormatter = new DecimalFormat("#.00");
