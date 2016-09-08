@@ -11,11 +11,4 @@ import junit.textui.TestRunner;
 @SuiteClasses({ CompanyTest.class, ProjectTest.class, QualificationTest.class, WorkerTest.class })
 public class TestAll {
 	
-	public static void main(String arg[])
-    {
-        TestRunner.run(Suite.class);
- 
-    }
-	
-	
 }
