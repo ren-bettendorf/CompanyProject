@@ -1,4 +1,4 @@
-package cs414.a1.831135376;
+package cs414.a1.rbetten;
 
 import java.util.*;
 
@@ -75,7 +75,7 @@ public class Project {
 		
 		for ( Qualification q : requires )
 		{
-			if ( !allWorkerQ.contains(q) )
+			if ( !allWorkerQualifications.contains(q) )
 			{
 				missingQualifications.add(q);
 			}
@@ -120,7 +120,7 @@ public class Project {
 	public String toString()
 	{
 		// Returns "Company Name:#Workers On Project:Project Status"
-		return name + ":" + workersAssignedToProject.projectSize() + ":" + status.toString();
+		return name + ":" + workersAssignedToProject.size() + ":" + status.toString();
 	}
 	
 }

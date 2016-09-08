@@ -1,14 +1,13 @@
-package cs414.a1.831135376;
+package cs414.a1.rbetten;
 
 import java.util.*;
-import java.util.Map.Entry;
 
 public class Company {
 	
 	private String name;
 	
 	private HashSet<Worker> assignedWorkers = new HashSet<Worker>();
-	private HashMap<Worker> availablePool = new HashMap<Worker>();
+	private HashSet<Worker> availablePool = new HashSet<Worker>();
 	private HashSet<Project> projectsPool = new HashSet<Project>();
 	
 	
@@ -88,7 +87,7 @@ public class Company {
 		else
 		{
 			
-			if ( project.isHelpful(worker) && !worker.willOverload(project) && !worker.getProjectsAssignedTo().contains(project) && availablePool.containsKey(worker) )
+			if ( project.isHelpful(worker) && !worker.willOverload(project) && !worker.getProjectsAssignedTo().contains(project) && availablePool.contains(worker) )
 			{
 				if ( project.getStatus() != ProjectStatus.ACTIVE && project.getStatus() != ProjectStatus.FINISHED )
 				{
@@ -111,7 +110,7 @@ public class Company {
 			if(assignedWorkers.contains(worker))
 			{
 				// If so then remove worker from project and project from worker
-				workersAssigned.remove(worker);
+				assignedWorkers.remove(worker);
 				worker.unassignProject(project);
 				
 				// Check to see if project has any missing qualifications by removing worker and is ACTIVE
@@ -171,7 +170,7 @@ public class Company {
 				
 				for ( Worker workersAssignedToProject : project.getWorkers() )
 				{
-					unassignProject(project, workersAssignedToProject);
+					unassign(project, workersAssignedToProject);
 				}
 			}
 		}
