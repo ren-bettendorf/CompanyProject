@@ -78,9 +78,25 @@ public class CompanyTest {
 
 	// Testing addToAvailableWorkerPool(Worker)
 	@Test
-	public void testAddToAvailableWorkerPool()
+	public void testAddToAvailableWorkerPoolAddingWillFirstTime()
 	{
-		Assert.assertTrue(true);
+		HashSet<Worker> expected = new HashSet<Worker>();
+		expected.add(will);
+		cAmazon.addToAvailableWorkerPool(will);
+		Assert.assertTrue(cAmazon.getAvailableWorkers.equals(expected));
+	}
+	@Test
+	public void testAddToAvailableWorkerPoolAddingSamePersonTwice()
+	{
+		HashSet<Worker> expected = new HashSet<Worker>();
+		expected.add(will);
+		cAmazon.addToAvailableWorkerPool(will);
+		Assert.assertTrue(cAmazon.getAvailableWorkers.equals(expected));
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testCreateProjectStringNull() 
+	{
+		cKSI.addToAvailableWorkerPool(null);
 	}
 
 	// Testing assign(Project, Worker)
@@ -89,6 +105,17 @@ public class CompanyTest {
 	{
 		Assert.assertTrue(true);
 	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testAssignProjectNull() 
+	{
+		Project proj = new Project("P", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
+		cKSI.assign(proj, null);
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testAssignProjectNull() 
+	{
+		cKSI.assign(null, will);
+	}
 	
 	// Testing unassign(Project, Worker)
 	@Test
@@ -96,12 +123,28 @@ public class CompanyTest {
 	{
 		Assert.assertTrue(true);
 	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testUnassignWorkerNull() 
+	{
+		Project proj = new Project("P", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
+		cKSI.unassign(proj, null);
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testUnassignProjectNull() 
+	{
+		cKSI.unassign(null, will);
+	}
 	
 	// Testing unassignAll(Worker)
 	@Test
 	public void testUnassignAll() 
 	{
 		Assert.assertTrue(true);
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testCreateProjectStringNull() 
+	{
+		cKSI.unassignAll(null);
 	}
 	
 	// Testing start(Project)
