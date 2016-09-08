@@ -1,20 +1,20 @@
-package cs414.a1.rbetten;
+package cs414.a1.831135376;
 
 import java.util.*;
 
 public class Project {
 	
 	private String name;
-	private ProjectSize size;
+	private ProjectSize projectSize;
 	private ProjectStatus status;
 	
 	private HashSet<Qualification> requires = new HashSet<Qualification>();
-	private HashSet<Worker> workersOnProject = new HashSet<Worker>();
+	private HashSet<Worker> workersAssignedToProject = new HashSet<Worker>();
 		
-	public Project(String name, ProjectSize size, ProjectStatus status)
+	public Project(String name, ProjectSize projectSize, ProjectStatus status)
 	{
 		this.name = name;
-		this.size = size;
+		this.projectSize = projectSize;
 		this.status = status;
 	}
 	
@@ -25,7 +25,7 @@ public class Project {
 	
 	public ProjectSize getSize()
 	{
-		return size;
+		return projectSize;
 	}
 	
 	public ProjectStatus getStatus()
@@ -35,7 +35,7 @@ public class Project {
 	
 	public HashSet<Worker> getWorkers()
 	{
-		return workersOnProject;
+		return workersAssignedToProject;
 	}
 	
 	public void setStatus(ProjectStatus ps)
@@ -45,12 +45,12 @@ public class Project {
 	
 	public void assignWorker(Worker w)
 	{
-		workersOnProject.add(w);
+		workersAssignedToProject.add(w);
 	}
 	
 	public void unassignWorker(Worker w)
 	{
-		workersOnProject.remove(w);
+		workersAssignedToProject.remove(w);
 	}
 	
 	@Override
@@ -63,31 +63,25 @@ public class Project {
 		return false;
 	}
 	
-	@Override
-	public String toString()
-	{
-		return name + ":" + workersOnProject.size() + ":" + status.toString();
-	}
-	
 	public HashSet<Qualification> missingQualifications()
 	{
-		HashSet<Qualification> missingQ = new HashSet<Qualification>();
-		HashSet<Qualification> allWorkerQ  = new HashSet<Qualification>();
+		HashSet<Qualification> missingQualifications = new HashSet<Qualification>();
+		HashSet<Qualification> allWorkerQualifications  = new HashSet<Qualification>();
 		
-		for ( Worker w : workersOnProject )
+		for ( Worker w : workersAssignedToProject )
 		{
-			allWorkerQ.addAll(w.getQualifications());
+			allWorkerQualifications.addAll(w.getQualifications());
 		}
 		
 		for ( Qualification q : requires )
 		{
 			if ( !allWorkerQ.contains(q) )
 			{
-				missingQ.add(q);
+				missingQualifications.add(q);
 			}
 		}
 				
-		return missingQ;
+		return missingQualifications;
 	}
 	
 	public boolean isHelpful(Worker w)
@@ -111,6 +105,7 @@ public class Project {
 	
 	public void addQualification(Qualification q)
 	{
+		// Check for null pointer in q and if not null adds the requirement
 		if (q == null)
 		{
 			throw new IllegalArgumentException();
@@ -120,4 +115,12 @@ public class Project {
 			requires.add(q);
 		}
 	}
+	
+	@Override
+	public String toString()
+	{
+		// Returns "Company Name:#Workers On Project:Project Status"
+		return name + ":" + workersAssignedToProject.projectSize() + ":" + status.toString();
+	}
+	
 }

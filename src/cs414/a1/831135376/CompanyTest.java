@@ -1,4 +1,5 @@
-package cs414.a1.rbetten;
+package cs414.a1.831135376;
+
 import java.util.HashSet;
 
 import org.junit.Assert;
@@ -43,10 +44,23 @@ public class CompanyTest {
 	public void testEqualsObject() 
 	{
 		Assert.assertTrue(cKSI.equals(new Company("Karl Storz")));
-		Assert.assertFalse(cGoogle.equals(cAmazon));
-		Assert.assertFalse(cKSI.equals(new Qualification("Qual")));
-		Assert.assertFalse(cGoogle.equals(null));
 	}
+	@Test
+	public void testEqualsDiffObjects()
+	{
+		Assert.assertFalse(cKSI.equals(new Qualification("Qual")));
+	}	
+	@Test
+	public void testEqualsDiffCompanies()
+	{
+		Assert.assertFalse(cGoogle.equals(cAmazon));
+	}
+	@Test
+	public void testEqualsNullCompanies()
+	{
+		Assert.assertFalse(cGoogle.equals(null));
+	}	
+	
 
 	@Test
 	public void testToString() 

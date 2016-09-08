@@ -1,4 +1,4 @@
-package cs414.a1.rbetten;
+package cs414.a1.831135376;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -16,10 +16,5 @@ public class TestAll {
 	{
 		junit.textui.TestRunner.run (suite());
 	}
-	// The suite() method is helpful when using JUnit 3 Test Runners or Ant.
-	public static junit.framework.Test suite()
-	{
-		return new JUnit4TestAdapter (TestAll.class);
-	}
-
+	
 }

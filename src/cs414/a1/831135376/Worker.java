@@ -1,4 +1,4 @@
-package cs414.a1.rbetten;
+package cs414.a1.831135376;
 
 import java.text.DecimalFormat;
 import java.util.*;
@@ -39,7 +39,7 @@ public class Worker {
 		return Double.valueOf(salary);
 	}
 	
-	public HashSet<Project> getAssignedTo()
+	public HashSet<Project> getProjectsAssignedTo()
 	{
 		return assignedTo;
 	}
