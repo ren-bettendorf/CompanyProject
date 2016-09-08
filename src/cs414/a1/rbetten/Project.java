@@ -43,6 +43,16 @@ public class Project {
 		status = ps;
 	}
 	
+	public void assignWorker(Worker w)
+	{
+		workersOnProject.add(w);
+	}
+	
+	public void unassignWorker(Worker w)
+	{
+		workersOnProject.remove(w);
+	}
+	
 	@Override
 	public boolean equals(Object obj)
 	{

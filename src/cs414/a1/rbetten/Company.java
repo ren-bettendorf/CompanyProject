@@ -116,11 +116,17 @@ public class Company {
 		}
 		else
 		{
+			HashSet<Worker> workersAssigned = (HashSet<Worker>)workersAssignedToProjects.get(project);
+			
 			// Check to see if worker is on project
+			if(workersAssigned.contains(worker))
+			{
+				// If so then remove worker from project and project from worker
+				workersAssigned.remove(worker);
+				
+			}
 			
-			// If so then remove worker from project and project from worker
-			
-			// Check to see if project has any missing qualifications by removing worker
+			// Check to see if project has any missing qualifications by removing worker and is ACTIVE
 			if ( project.getStatus() == ProjectStatus.ACTIVE && project.missingQualifications().size() > 0 )
 			{
 				project.setStatus(ProjectStatus.SUSPENDED);
