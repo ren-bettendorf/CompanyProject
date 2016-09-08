@@ -108,16 +108,53 @@ public class CompanyTest {
 	@Test
 	public void testStartPlannedTrue() 
 	{
-		Project trueProject = new Project("True Project", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
-		cKSI.start(trueProject);
-		Assert.assertTrue(trueProject.getStatus().equals(ProjectStatus.ACTIVE));
+		Project project = new Project("True Project", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
+		cKSI.start(project);
+		Assert.assertTrue(project.getStatus().equals(ProjectStatus.ACTIVE));
 	}
 	@Test
 	public void testStartSuspendedTrue() 
 	{
-		Project trueProject = new Project("True Project", ProjectSize.MEDIUM, ProjectStatus.SUSPENDED);
-		cKSI.start(trueProject);
-		Assert.assertTrue(trueProject.getStatus().equals(ProjectStatus.ACTIVE));
+		Project project = new Project("True Project", ProjectSize.MEDIUM, ProjectStatus.SUSPENDED);
+		cKSI.start(project);
+		Assert.assertTrue(project.getStatus().equals(ProjectStatus.ACTIVE));
+	}
+	@Test
+	public void testStartActiveTrue() 
+	{
+		Project project = new Project("True Project", ProjectSize.MEDIUM, ProjectStatus.ACTIVE);
+		cKSI.start(project);
+		Assert.assertTrue(project.getStatus().equals(ProjectStatus.ACTIVE));
+	}
+	@Test
+	public void testStartFinishedTrue() 
+	{
+		Project project = new Project("True Project", ProjectSize.MEDIUM, ProjectStatus.FINISH);
+		cKSI.start(project);
+		Assert.assertTrue(project.getStatus().equals(ProjectStatus.FINISH));
+	}
+	@Test
+	public void testStartPlannedFalse() 
+	{
+		Project project = new Project("True Project", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
+		Qualification q = new Qualification("Q");
+		project.add(q);
+		cKSI.start(project);
+		Assert.assertFalse(project.getStatus().equals(ProjectStatus.ACTIVE));
+	}
+	@Test
+	public void testStartSuspendedFalse() 
+	{
+		Project project = new Project("True Project", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
+		Qualification q = new Qualification("Q");
+		project.add(q);
+		cKSI.start(project);
+		Assert.assertFalse(project.getStatus().equals(ProjectStatus.ACTIVE));
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testCreateProjectStringNull() 
+	{
+		cKSI.start(null);
 	}
 	
 	// Testing finish(Project)

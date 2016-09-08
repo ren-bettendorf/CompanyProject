@@ -45,7 +45,10 @@ public class Project {
 	
 	public void assignWorker(Worker w)
 	{
-		workersAssignedToProject.add(w);
+		if(status != ProjectStatus.FINISHED)
+		{
+			workersAssignedToProject.add(w);
+		}
 	}
 	
 	public void unassignWorker(Worker w)
@@ -112,7 +115,10 @@ public class Project {
 		}
 		else
 		{
-			requires.add(q);
+			if(status != ProjectStatus.FINISHED)
+			{
+				requires.add(q);
+			}
 		}
 	}
 	
