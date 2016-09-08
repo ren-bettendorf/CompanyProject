@@ -190,23 +190,19 @@ public class Company {
 		}
 	}
 	
-	public Project createProject(String _name, HashSet<Qualification> qualSet, ProjectSize size, ProjectStatus status)
+	public Project createProject(String _name, HashSet<Qualification> qualSet, ProjectSize size)
 	{
 		Project proj = null;
 		
 		// Enforce requirement that 1 to 1...* for project to qualifications
-		if ( _name == null || qualSet == null || size == null || status == null || qualSet.size() == 0)
+		if ( _name == null || qualSet == null || size == null || qualSet.size() == 0)
 		{
 			throw new IllegalArgumentException();
 		}
 		else
 		{
-			proj = new Project(_name, size, status);
+			proj = new Project(_name, size, ProjectStatus.PLANNED);
 			workersAssignedToProjects.put(proj, new HashSet<Worker>());
-			if(status == ProjectStatus.ACTIVE)
-			{
-				projectsCurrentlyActive.add(proj);
-			}
 			
 			for (Qualification qual : qualSet)
 			{

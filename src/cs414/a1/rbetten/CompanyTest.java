@@ -28,9 +28,9 @@ public class CompanyTest {
 		Worker tina = new Worker("Tina", willQuals);
 		
 		cKSI = new Company("Karl Storz");
-		cKSI.createProject("Project 1", qualifications, ProjectSize.LARGE, ProjectStatus.PLANNED);
-		cKSI.createProject("Project 2", qualifications, ProjectSize.LARGE, ProjectStatus.PLANNED);
-		cKSI.createProject("Project 3", qualifications, ProjectSize.LARGE, ProjectStatus.PLANNED);
+		cKSI.createProject("Project 1", qualifications, ProjectSize.LARGE);
+		cKSI.createProject("Project 2", qualifications, ProjectSize.LARGE);
+		cKSI.createProject("Project 3", qualifications, ProjectSize.LARGE);
 		
 		cKSI.addToAvailableWorkerPool(will);
 		cKSI.addToAvailableWorkerPool(tina);
