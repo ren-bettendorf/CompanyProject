@@ -12,6 +12,8 @@ public class CompanyTest {
 	Company cAmazon;
 	Company cGoogle;
 	
+	HashSet<Qualification> willQuals;
+	
 	@Before
 	public void setUp() throws Exception 
 	{
@@ -20,7 +22,7 @@ public class CompanyTest {
 		qualifications.add(new Qualification("Plan"));
 		qualifications.add(new Qualification("Testing"));
 		
-		HashSet<Qualification> willQuals = new HashSet<Qualification>();
+		willQuals = new HashSet<Qualification>();
 		willQuals.add(new Qualification("Program"));
 		Worker will = new Worker("Will", willQuals);
 		
@@ -40,6 +42,7 @@ public class CompanyTest {
 		cGoogle = new Company("Google");
 	}
 
+	// Testing equals()
 	@Test
 	public void testEqualsObject() 
 	{
@@ -61,55 +64,84 @@ public class CompanyTest {
 		Assert.assertFalse(cGoogle.equals(null));
 	}	
 	
-
+	// Testing toString()
 	@Test
-	public void testToString() 
+	public void testToStringCreated() 
 	{
-		Assert.assertTrue(cKSI.toString().equals("Karl Storz:2:3"));
-		
 		Assert.assertTrue(cAmazon.toString().equals("Amazon:0:0"));
 	}
+	@Test
+	public void testToStringChanged() 
+	{
+		Assert.assertTrue(cKSI.toString().equals("Karl Storz:2:3"));
+	}
 
+	// Testing addToAvailableWorkerPool(Worker)
 	@Test
 	public void testAddToAvailableWorkerPool()
 	{
 		Assert.assertTrue(true);
 	}
 
+	// Testing assign(Project, Worker)
 	@Test
 	public void testAssign() 
 	{
 		Assert.assertTrue(true);
 	}
-
+	
+	// Testing unassign(Project, Worker)
 	@Test
 	public void testUnassign() 
 	{
 		Assert.assertTrue(true);
 	}
-
+	
+	// Testing unassignAll(Worker)
 	@Test
 	public void testUnassignAll() 
 	{
 		Assert.assertTrue(true);
 	}
-
+	
+	// Testing start(Project)
 	@Test
-	public void testStart() 
+	public void testStartPlannedTrue() 
 	{
-		Assert.assertTrue(true);
+		Project trueProject = new Project("True Project", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
+		cKSI.start(trueProject);
+		Assert.assertTrue(trueProject.getStatus().equals(ProjectStatus.ACTIVE));
 	}
-
+	@Test
+	public void testStartSuspendedTrue() 
+	{
+		Project trueProject = new Project("True Project", ProjectSize.MEDIUM, ProjectStatus.SUSPENDED);
+		cKSI.start(trueProject);
+		Assert.assertTrue(trueProject.getStatus().equals(ProjectStatus.ACTIVE));
+	}
+	
+	// Testing finish(Project)
 	@Test
 	public void testFinish() 
 	{
 		Assert.assertTrue(true);
 	}
-
-	@Test
-	public void testCreateProject() 
+	
+	// Testing createProject(String, HashSet<Qualification>, ProjectSize)
+	@Test(expected = IllegalArgumentException.class)
+	public void testCreateProjectStringNull() 
 	{
-		Assert.assertTrue(true);
+		cKSI.createProject(null, willQuals, ProjectSize.SMALL);
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testCreateProjectQualsNull() 
+	{
+		cKSI.createProject("Project", null, ProjectSize.SMALL);
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testCreateProjectProjectSizeNull() 
+	{
+		cKSI.createProject("Project", willQuals, null);
 	}
 
 }

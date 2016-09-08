@@ -13,11 +13,17 @@ public class WorkerTest {
 	Worker wNoah;
 	Company comp;
 
+	HashSet<Qualification> originalQuals;
 	HashSet<Qualification> qualifications;
 	
 	@Before
 	public void setUp() throws Exception 
 	{	
+		originalQuals = new HashSet<Qualification>();
+		for(Qualification q : wWill.getQualifications())
+		{
+			originalQuals.add(q);
+		}
 		qualifications = new HashSet<Qualification>();
 		qualifications.add(new Qualification("Program"));
 		qualifications.add(new Qualification("Plan"));
@@ -52,71 +58,106 @@ public class WorkerTest {
 		wTina.setSalary(-0.0000000001);
 	}
 	
+	// Testing setSalary(double)
 	@Test
-	public void testSetSalary()
+	public void testSetSalaryInitial()
 	{
 		double zero = 0.00;
 		
 		// Testing default salary
 		Assert.assertTrue(wWill.getSalary() == zero);
+	}
+	@Test
+	public void testSetSalaryTrue()
+	{
 		// Testing set salary correct
 		Assert.assertTrue(wTina.getSalary() == 10000);
-		
+	}
+	@Test
+	public void testSetSalaryTooManyDecimalPlaces()
+	{
 		// Testing too many decimal places.
 		wWill.setSalary(100.0005);
 		Assert.assertTrue(wWill.getSalary() == 100.00);
 	}
-
+	
+	// Testing addQualification(Qualification)
 	@Test
-	public void testAddQualification()
+	public void testAddQualificationTrue()
+	{
+		Assert.assertTrue(originalQuals.equals(wWill.getQualifications()));
+	}
+	@Test
+	public void testAddQualificationFalse()
 	{
 		Qualification qual = new Qualification("Qualification");
-		HashSet<Qualification> originalQuals = new HashSet<Qualification>();
-		for(Qualification q : wWill.getQualifications())
-		{
-			originalQuals.add(q);
-		}
 		wWill.addQualification(qual);
-		HashSet<Qualification> willQuals = wWill.getQualifications();
-		Assert.assertFalse(originalQuals.equals(willQuals));
 		
-		originalQuals.add(qual);
-			
-		wWill.addQualification(qual);
-		willQuals = wWill.getQualifications();
-		
-		Assert.assertTrue(originalQuals.equals(willQuals));
+		Assert.assertFalse(originalQuals.equals(wWill.getQualifications()));
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testAddQualification()
+	{
+		wWill.addQualification(null);
 	}
 
+	// Testing equals()
 	@Test
-	public void testEqualsObject() 
+	public void testEqualsObjectTrue() 
 	{
 		Assert.assertTrue(wWill.equals(new Worker("Will", qualifications)));
+	}
+	@Test
+	public void testEqualsObjectFalse() 
+	{
 		Assert.assertFalse(wTina.equals(wNoah));
+	}
+	@Test
+	public void testEqualsObjectDifferent() 
+	{
 		Assert.assertFalse(wWill.equals(new Qualification("Qual")));
+	}
+	@Test
+	public void testEqualsObjectNull() 
+	{
 		Assert.assertFalse(wTina.equals(null));
 	}
-
+	
+	// Testing toString()
 	@Test
-	public void testToString()
+	public void testToStringBase()
 	{
 		Assert.assertTrue(wNoah.toString().equals("Noah:0:3:0.00"));
+	}
+	@Test
+	public void testToStringChangedSalary()
+	{
 		Assert.assertTrue(wTina.toString().equals("Tina:0:3:10000.00"));
 	}
-
+	
+	// Testing willOverload(Project)
 	@Test
-	public void testWillOverload()
+	public void testWillOverloadFalse()
 	{
 		Project sProject1 = new Project("SmallProject 1", ProjectSize.SMALL, ProjectStatus.PLANNED);
 		sProject1.setStatus(ProjectStatus.ACTIVE);
 
 		Assert.assertFalse(wWill.willOverload(sProject1));
 		
+	}
+	@Test
+	public void testWillOverloadTrue()
+	{
 		wWill.assignProject(sProject1);
 		Project sProject2 = new Project("SmallProject 2", ProjectSize.SMALL, ProjectStatus.PLANNED);
 		sProject2.setStatus(ProjectStatus.ACTIVE);
 		
 		Assert.assertTrue(wWill.willOverload(sProject2));
 	}
-
+	@Test(expected = IllegalArgumentException.class)
+	public void testWillOverloadNull()
+	{
+		wWill.willOverload(null);
+	}
+	
 }

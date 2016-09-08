@@ -19,18 +19,34 @@ public class QualificationTest {
 	}
 	
 	@Test
-	public void testEqualsObject()
+	public void testEqualsObjectTrue()
 	{
 		Assert.assertTrue(qProgram.equals(new Qualification("Program")));
+	}
+	@Test
+	public void testEqualsObjectFalse()
+	{
 		Assert.assertFalse(qPlan.equals(qTest));
+	}
+	@Test
+	public void testEqualsObjectDifferent()
+	{
 		Assert.assertFalse(qPlan.equals(new Company("Comp")));
+	}
+	@Test
+	public void testEqualsObjectNull()
+	{
 		Assert.assertFalse(qTest.equals(null));
 	}
 
 	@Test
-	public void testToString()
+	public void testToStringTrue()
 	{
 		Assert.assertTrue(qProgram.toString().equals("Program"));
+	}
+	@Test
+	public void testToStringFalse()
+	{
 		Assert.assertFalse(qPlan.toString().equals(qTest.toString()));
 	}
 

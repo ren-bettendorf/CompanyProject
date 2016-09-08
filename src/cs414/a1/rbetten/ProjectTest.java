@@ -79,7 +79,7 @@ public class ProjectTest {
 		Assert.assertTrue(projectActive.toString().equals(expected));
 	}
 	@Test
-	public void testToStringActiveStatus() 
+	public void testToStringWorkers() 
 	{
 		String expected = "Proj2:2:ACTIVE";
 		Assert.assertTrue(p2.toString().equals(expected));
@@ -87,12 +87,12 @@ public class ProjectTest {
 	
 	// Testing missingQualification()
 	@Test
-	public void testMissingQualificationCreation() 
+	public void testMissingQualificationMissingNone() 
 	{
 		Assert.assertTrue(p1.missingQualification().equals(new HashSet<Qualification>()));
 	}
 	@Test
-	public void testMissingQualificationCreation() 
+	public void testMissingQualificationMissingOne() 
 	{
 		HashSet<Qualification> expected = new HashSet<Qualification>();
 		Qualification q4 = new Qualification("Another");
