@@ -82,7 +82,11 @@ public class Project {
 	
 	public boolean isHelpful(Worker w)
 	{
-		if(w != null)
+		if(w == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		else
 		{
 			for( Qualification workerQualification : w.getQualifications() )
 			{
@@ -97,31 +101,13 @@ public class Project {
 	
 	public void addQualification(Qualification q)
 	{
-		if (q != null)
+		if (q == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		else
 		{
 			requires.add(q);
-		}
-	}
-	
-	public void assignWorker(Worker w)
-	{
-		if (w != null)
-		{
-			if( isHelpful(w) )
-			{
-				workersOnProject.add(w);
-			}
-		}
-	}
-	
-	public void unassignWorker(Worker w)
-	{
-		if(w != null)
-		{
-			if( workersOnProject.contains(w) )
-			{
-				workersOnProject.remove(w);
-			}
 		}
 	}
 }

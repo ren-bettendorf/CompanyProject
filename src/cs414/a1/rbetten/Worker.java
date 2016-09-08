@@ -16,7 +16,11 @@ public class Worker {
 		this.name = name;
 		this.salary = "0.00";
 		
-		if(qualifications.size() > 0)
+		if(qualifications.size() == 0)
+		{
+			throw new IllegalArgumentException();
+		}
+		else
 		{
 			for (Qualification qual : qualifications)
 			{
@@ -43,7 +47,11 @@ public class Worker {
 	public void setSalary(double salary)
 	{
 		// Ensures worker can never have a negative salary
-		if(salary >= 0.00)
+		if(salary < 0.00)
+		{
+			throw new IllegalArgumentException();
+		}
+		else
 		{
 			this.salary = formatDouble(salary);
 		}
@@ -57,15 +65,17 @@ public class Worker {
 	public void addQualification(Qualification q)
 	{
 		// Ensures a null qualification is not added
-		if (q != null && !isQualifiedFor.contains(q))
+		if (q == null )
 		{
-			isQualifiedFor.add(q);
+			throw new IllegalArgumentException();
 		}
-	}
-
-	public int numberAssignedTo()
-	{
-		return assignedTo.size();
+		else
+		{
+			if(!isQualifiedFor.contains(q))
+			{
+				isQualifiedFor.add(q);
+			}
+		}
 	}
 	
 	/** Overrides the equals method of Worker
@@ -100,7 +110,11 @@ public class Worker {
 	public boolean willOverload(Project p)
 	{
 		int sum = 0;
-		if(p != null)
+		if(p == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		else
 		{
 			sum = projectSizeMultiple(p);
 			for (Project projectOn : assignedTo )
@@ -122,7 +136,11 @@ public class Worker {
 	public void assignProject(Project p)
 	{
 		// Ensures a null project is not added
-		if (p != null)
+		if (p == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		else
 		{
 			ProjectStatus status = p.getStatus();
 			if( !willOverload(p) && !(status == ProjectStatus.ACTIVE || status == ProjectStatus.FINISHED ) );

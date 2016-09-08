@@ -45,20 +45,22 @@ public class WorkerTest {
 		mProject1.setStatus(ProjectStatus.ACTIVE);
 	}
 	
+	@Test(expected = IllegalArgumentException.class)
+	public void testIllegalSalary()
+	{
+		wTina.setSalary(-1);
+		wTina.setSalary(-0.0000000001);
+	}
+	
 	@Test
 	public void testSetSalary()
 	{
-		double negative = -1.00;
 		double zero = 0.00;
 		
 		// Testing default salary
 		Assert.assertTrue(wWill.getSalary() == zero);
 		// Testing set salary correct
 		Assert.assertTrue(wTina.getSalary() == 10000);
-		
-		// Testing negative setSalary();
-		wNoah.setSalary(negative);
-		Assert.assertFalse(wNoah.getSalary() == negative);
 		
 		// Testing too many decimal places.
 		wWill.setSalary(100.0005);

@@ -23,9 +23,9 @@ public class CompanyTest {
 		willQuals.add(new Qualification("Program"));
 		Worker will = new Worker("Will", willQuals);
 		
-		HashSet<Qualification> tinaQuals = new HashSet<Qualification>();
+		//HashSet<Qualification> tinaQuals = new HashSet<Qualification>();
 		willQuals.add(new Qualification("Testing"));
-		Worker tina = new Worker("Tina", tinaQuals);
+		Worker tina = new Worker("Tina", willQuals);
 		
 		cKSI = new Company("Karl Storz");
 		cKSI.createProject("Project 1", qualifications, ProjectSize.LARGE, ProjectStatus.PLANNED);
@@ -37,12 +37,6 @@ public class CompanyTest {
 		
 		cAmazon = new Company("Amazon");
 		cGoogle = new Company("Google");
-	}
-
-	@Test
-	public void testCompanyString() 
-	{
-		Assert.assertTrue(true);
 	}
 
 	@Test
@@ -58,6 +52,7 @@ public class CompanyTest {
 	public void testToString() 
 	{
 		Assert.assertTrue(cKSI.toString().equals("Karl Storz:2:3"));
+		
 		Assert.assertTrue(cAmazon.toString().equals("Amazon:0:0"));
 	}
 
