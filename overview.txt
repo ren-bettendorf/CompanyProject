@@ -1,0 +1,20 @@
+# Company Project Management System Assignment
+
+This project is for the first assignment in Colorado State University CS 414 Online Course demonstrating an understanding of UML design and TDD approach.
+
+It uses JUnit 4 for TDD and was created using the Eclipse IDE.
+
+I did have some problems getting some of the tests to only use the main function being tested, but in the end I did have them all tested with multiple test cases taking into account different User Case scenarios. Also, I had problems getting the tests to run the JUnit Test Runner outside of Eclipse but once I have it running I don’t see any problems with this going forward. 
+
+The compile command line code I used was:
+java -cp /usr/share/java/junit.jar:/usr/share/java/hamcrest/core.jar:. cs414/a1/rbetten/*.java
+
+To run the Test Suite:
+java -cp /usr/share/java/junit.jar:/usr/share/java/hamcrest/core.jar:. cs414.a1.rbetten.TestAll
+
+My file structure is as follows and is needed to run (I put the files on the root such as):
+~/cs414/a1/rbetten/*.java
+
+If you have any questions about anything please don’t hesitate to email be at renaldorini@gmail.com.
+
+Thanks!

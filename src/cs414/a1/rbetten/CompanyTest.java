@@ -103,9 +103,151 @@ public class CompanyTest {
 
 	// Testing assign(Project, Worker)
 	@Test
-	public void testAssign() 
+	public void testAssignProjectTrue() 
 	{
-		Assert.assertTrue(true);
+		Qualification qA = new Qualification("A");
+		Qualification qB = new Qualification("B");
+		Qualification qC = new Qualification("C");
+		HashSet<Qualification> projectQuals = new HashSet<Qualification>();
+		projectQuals.add(qA);
+		projectQuals.add(qB);
+		projectQuals.add(qC);
+		
+		Project project = cKSI.createProject("Project", projectQuals, ProjectSize.SMALL);
+		
+
+		HashSet<Qualification> workerQuals = new HashSet<Qualification>();
+		workerQuals.add(qA);
+		workerQuals.add(qB);
+		workerQuals.add(qC);
+		
+		Worker worker = new Worker("Worker", workerQuals);
+		cKSI.addToAvailableWorkerPool(worker);
+		
+		cKSI.assign(project, worker);
+		Assert.assertTrue(project.getWorkers().contains(worker) && project.getWorkers().size() == 1);
+	}
+	@Test
+	public void testAssignWorkerTrue() 
+	{
+		Qualification qA = new Qualification("A");
+		Qualification qB = new Qualification("B");
+		Qualification qC = new Qualification("C");
+		HashSet<Qualification> projectQuals = new HashSet<Qualification>();
+		projectQuals.add(qA);
+		projectQuals.add(qB);
+		projectQuals.add(qC);
+		
+		Project project = cKSI.createProject("Project", projectQuals, ProjectSize.SMALL);
+		
+
+		HashSet<Qualification> workerQuals = new HashSet<Qualification>();
+		workerQuals.add(qA);
+		workerQuals.add(qB);
+		workerQuals.add(qC);
+		
+		Worker worker = new Worker("Worker", workerQuals);
+		cKSI.addToAvailableWorkerPool(worker);
+		
+		cKSI.assign(project, worker);
+		Assert.assertTrue(worker.getProjectsAssignedTo().contains(project) && worker.getProjectsAssignedTo().size() == 1);
+	}
+	@Test
+	public void testAssignCompanyTrue() 
+	{
+		Qualification qA = new Qualification("A");
+		Qualification qB = new Qualification("B");
+		Qualification qC = new Qualification("C");
+		HashSet<Qualification> projectQuals = new HashSet<Qualification>();
+		projectQuals.add(qA);
+		projectQuals.add(qB);
+		projectQuals.add(qC);
+		
+		Project project = cKSI.createProject("Project", projectQuals, ProjectSize.SMALL);
+		
+
+		HashSet<Qualification> workerQuals = new HashSet<Qualification>();
+		workerQuals.add(qA);
+		workerQuals.add(qB);
+		workerQuals.add(qC);
+		
+		Worker worker = new Worker("Worker", workerQuals);
+		cKSI.addToAvailableWorkerPool(worker);
+		
+		cKSI.assign(project, worker);
+		Assert.assertTrue(cKSI.getAssignedWorkers().contains(worker));
+	}
+	@Test
+	public void testAssignWorkerFalse() 
+	{
+		Qualification qA = new Qualification("A");
+		Qualification qB = new Qualification("B");
+		Qualification qC = new Qualification("C");
+		HashSet<Qualification> projectQuals = new HashSet<Qualification>();
+		projectQuals.add(qA);
+		projectQuals.add(qB);
+		projectQuals.add(qC);
+		
+		Project project = cKSI.createProject("Project", projectQuals, ProjectSize.SMALL);
+		
+
+		HashSet<Qualification> workerQuals = new HashSet<Qualification>();
+		Qualification qFalse = new Qualification("False");
+		workerQuals.add(qFalse);
+		
+		Worker worker = new Worker("Worker", workerQuals);
+		cKSI.addToAvailableWorkerPool(worker);
+		
+		cKSI.assign(project, worker);
+		Assert.assertFalse(worker.getProjectsAssignedTo().contains(project) && worker.getProjectsAssignedTo().size() == 1);
+	}
+	@Test
+	public void testAssignProjectFalse() 
+	{
+		Qualification qA = new Qualification("A");
+		Qualification qB = new Qualification("B");
+		Qualification qC = new Qualification("C");
+		HashSet<Qualification> projectQuals = new HashSet<Qualification>();
+		projectQuals.add(qA);
+		projectQuals.add(qB);
+		projectQuals.add(qC);
+		
+		Project project = cKSI.createProject("Project", projectQuals, ProjectSize.SMALL);
+		
+
+		HashSet<Qualification> workerQuals = new HashSet<Qualification>();
+		Qualification qFalse = new Qualification("False");
+		workerQuals.add(qFalse);
+		
+		Worker worker = new Worker("Worker", workerQuals);
+		cKSI.addToAvailableWorkerPool(worker);
+		
+		cKSI.assign(project, worker);
+		Assert.assertFalse(project.getWorkers().contains(worker) && project.getWorkers().size() == 1);
+	}
+	@Test
+	public void testAssignCompanyFalse() 
+	{
+		Qualification qA = new Qualification("A");
+		Qualification qB = new Qualification("B");
+		Qualification qC = new Qualification("C");
+		HashSet<Qualification> projectQuals = new HashSet<Qualification>();
+		projectQuals.add(qA);
+		projectQuals.add(qB);
+		projectQuals.add(qC);
+		
+		Project project = cKSI.createProject("Project", projectQuals, ProjectSize.SMALL);
+		
+
+		HashSet<Qualification> workerQuals = new HashSet<Qualification>();
+		Qualification qFalse = new Qualification("False");
+		workerQuals.add(qFalse);
+		
+		Worker worker = new Worker("Worker", workerQuals);
+		cKSI.addToAvailableWorkerPool(worker);
+		
+		cKSI.assign(project, worker);
+		Assert.assertFalse(cKSI.getAssignedWorkers().contains(worker));
 	}
 	@Test(expected = IllegalArgumentException.class)
 	public void testAssignWorkerNull() 
@@ -121,9 +263,138 @@ public class CompanyTest {
 	
 	// Testing unassign(Project, Worker)
 	@Test
-	public void testUnassign() 
+	public void testUnassignCompanyTrue() 
 	{
-		Assert.assertTrue(true);
+		Qualification qA = new Qualification("A");
+		Qualification qB = new Qualification("B");
+		Qualification qC = new Qualification("C");
+		HashSet<Qualification> projectQuals = new HashSet<Qualification>();
+		projectQuals.add(qA);
+		projectQuals.add(qB);
+		projectQuals.add(qC);
+		
+		Project project = cKSI.createProject("Project", projectQuals, ProjectSize.SMALL);
+		
+
+		HashSet<Qualification> workerQuals = new HashSet<Qualification>();
+		workerQuals.add(qA);
+		workerQuals.add(qB);
+		workerQuals.add(qC);
+		
+		Worker worker = new Worker("Worker", workerQuals);
+		cKSI.addToAvailableWorkerPool(worker);
+		
+		cKSI.assign(project, worker);
+		cKSI.unassign(project, worker);
+		Assert.assertTrue(!cKSI.getAssignedWorkers().contains(worker) && cKSI.getAvailableWorkers().contains(worker));
+	}
+	@Test
+	public void testUnassignProjectTrue() 
+	{
+		Qualification qA = new Qualification("A");
+		Qualification qB = new Qualification("B");
+		Qualification qC = new Qualification("C");
+		HashSet<Qualification> projectQuals = new HashSet<Qualification>();
+		projectQuals.add(qA);
+		projectQuals.add(qB);
+		projectQuals.add(qC);
+		
+		Project project = cKSI.createProject("Project", projectQuals, ProjectSize.SMALL);
+		
+
+		HashSet<Qualification> workerQuals = new HashSet<Qualification>();
+		workerQuals.add(qA);
+		workerQuals.add(qB);
+		workerQuals.add(qC);
+		
+		Worker worker = new Worker("Worker", workerQuals);
+		cKSI.addToAvailableWorkerPool(worker);
+		
+		cKSI.assign(project, worker);
+		cKSI.unassign(project, worker);
+		Assert.assertTrue(!project.getWorkers().contains(worker));
+	}
+	@Test
+	public void testUnassignWorkerTrue() 
+	{
+		Qualification qA = new Qualification("A");
+		Qualification qB = new Qualification("B");
+		Qualification qC = new Qualification("C");
+		HashSet<Qualification> projectQuals = new HashSet<Qualification>();
+		projectQuals.add(qA);
+		projectQuals.add(qB);
+		projectQuals.add(qC);
+		
+		Project project = cKSI.createProject("Project", projectQuals, ProjectSize.SMALL);
+		
+
+		HashSet<Qualification> workerQuals = new HashSet<Qualification>();
+		workerQuals.add(qA);
+		workerQuals.add(qB);
+		workerQuals.add(qC);
+		
+		Worker worker = new Worker("Worker", workerQuals);
+		cKSI.addToAvailableWorkerPool(worker);
+		
+		cKSI.assign(project, worker);
+		cKSI.unassign(project, worker);
+		Assert.assertTrue(!worker.getProjectsAssignedTo().contains(project));
+	}
+	@Test
+	public void testUnassignProjectSuspended() 
+	{
+		Qualification qA = new Qualification("A");
+		Qualification qB = new Qualification("B");
+		Qualification qC = new Qualification("C");
+		HashSet<Qualification> projectQuals = new HashSet<Qualification>();
+		projectQuals.add(qA);
+		projectQuals.add(qB);
+		projectQuals.add(qC);
+		
+		Project project = cKSI.createProject("Project", projectQuals, ProjectSize.SMALL);
+		
+
+		HashSet<Qualification> workerQuals = new HashSet<Qualification>();
+		workerQuals.add(qA);
+		workerQuals.add(qB);
+		workerQuals.add(qC);
+		
+		Worker worker = new Worker("Worker", workerQuals);
+		cKSI.addToAvailableWorkerPool(worker);
+		
+		cKSI.assign(project, worker);
+		cKSI.start(project);
+		cKSI.unassign(project, worker);
+		Assert.assertTrue(project.getStatus().equals(ProjectStatus.SUSPENDED));
+	}
+	@Test
+	public void testUnassignMultipleProjects()
+	{
+		Qualification qA = new Qualification("A");
+		Qualification qB = new Qualification("B");
+		Qualification qC = new Qualification("C");
+		HashSet<Qualification> projectQuals = new HashSet<Qualification>();
+		projectQuals.add(qA);
+		projectQuals.add(qB);
+		projectQuals.add(qC);
+		
+		Project project = cKSI.createProject("Project", projectQuals, ProjectSize.SMALL);
+		Project project2 = cKSI.createProject("Project2", projectQuals, ProjectSize.MEDIUM);
+		
+	
+		HashSet<Qualification> workerQuals = new HashSet<Qualification>();
+		workerQuals.add(qA);
+		workerQuals.add(qB);
+		workerQuals.add(qC);
+		
+		Worker worker = new Worker("Worker", workerQuals);
+		cKSI.addToAvailableWorkerPool(worker);
+		
+		cKSI.assign(project, worker);
+		cKSI.assign(project2, worker);
+		
+		cKSI.unassign(project, worker);
+		Assert.assertTrue(!project.getWorkers().contains(worker) && project2.getWorkers().contains(worker));
 	}
 	@Test(expected = IllegalArgumentException.class)
 	public void testUnassignWorkerNull() 
@@ -139,9 +410,92 @@ public class CompanyTest {
 	
 	// Testing unassignAll(Worker)
 	@Test
-	public void testUnassignAll() 
+	public void testUnassignAllCompany() 
 	{
-		Assert.assertTrue(true);
+		Qualification qA = new Qualification("A");
+		Qualification qB = new Qualification("B");
+		Qualification qC = new Qualification("C");
+		HashSet<Qualification> projectQuals = new HashSet<Qualification>();
+		projectQuals.add(qA);
+		projectQuals.add(qB);
+		projectQuals.add(qC);
+		
+		Project project = cKSI.createProject("Project", projectQuals, ProjectSize.SMALL);
+		Project project2 = cKSI.createProject("Project2", projectQuals, ProjectSize.MEDIUM);
+		
+
+		HashSet<Qualification> workerQuals = new HashSet<Qualification>();
+		workerQuals.add(qA);
+		workerQuals.add(qB);
+		workerQuals.add(qC);
+		
+		Worker worker = new Worker("Worker", workerQuals);
+		cKSI.addToAvailableWorkerPool(worker);
+		
+		cKSI.assign(project, worker);
+		cKSI.assign(project2, worker);
+		
+		cKSI.unassignAll(worker);
+		Assert.assertTrue(!cKSI.getAssignedWorkers().contains(worker) && cKSI.getAvailableWorkers().contains(worker));
+	}
+	@Test
+	public void testUnassignAllProject() 
+	{
+		Qualification qA = new Qualification("A");
+		Qualification qB = new Qualification("B");
+		Qualification qC = new Qualification("C");
+		HashSet<Qualification> projectQuals = new HashSet<Qualification>();
+		projectQuals.add(qA);
+		projectQuals.add(qB);
+		projectQuals.add(qC);
+		
+		Project project = cKSI.createProject("Project", projectQuals, ProjectSize.SMALL);
+		Project project2 = cKSI.createProject("Project2", projectQuals, ProjectSize.MEDIUM);
+		
+
+		HashSet<Qualification> workerQuals = new HashSet<Qualification>();
+		workerQuals.add(qA);
+		workerQuals.add(qB);
+		workerQuals.add(qC);
+		
+		Worker worker = new Worker("Worker", workerQuals);
+		cKSI.addToAvailableWorkerPool(worker);
+		
+		cKSI.assign(project, worker);
+		cKSI.assign(project2, worker);
+		
+		cKSI.unassignAll(worker);
+		Assert.assertTrue(!project.getWorkers().contains(worker) && !project2.getWorkers().contains(worker));
+	}
+	@Test
+	public void testUnassignAllWorker() 
+	{
+		Qualification qA = new Qualification("A");
+		Qualification qB = new Qualification("B");
+		Qualification qC = new Qualification("C");
+		HashSet<Qualification> projectQuals = new HashSet<Qualification>();
+		projectQuals.add(qA);
+		projectQuals.add(qB);
+		projectQuals.add(qC);
+		
+		Project project = cKSI.createProject("Project", projectQuals, ProjectSize.SMALL);
+		Project project2 = cKSI.createProject("Project2", projectQuals, ProjectSize.MEDIUM);
+		
+
+		HashSet<Qualification> workerQuals = new HashSet<Qualification>();
+		workerQuals.add(qA);
+		workerQuals.add(qB);
+		workerQuals.add(qC);
+		
+		Worker worker = new Worker("Worker", workerQuals);
+		cKSI.addToAvailableWorkerPool(worker);
+		
+		cKSI.assign(project, worker);
+		cKSI.assign(project2, worker);
+		
+		cKSI.unassignAll(worker);
+		HashSet<Project> projAssigned = worker.getProjectsAssignedTo();
+		Assert.assertTrue(!projAssigned.contains(project) && !projAssigned.contains(project2) && projAssigned.size() == 0);
 	}
 	@Test(expected = IllegalArgumentException.class)
 	public void testUnassignAllWorkerNull() 
@@ -204,9 +558,60 @@ public class CompanyTest {
 	
 	// Testing finish(Project)
 	@Test
-	public void testFinish() 
+	public void testFinishActiveTrue() 
 	{
-		Assert.assertTrue(true);
+		Qualification qA = new Qualification("A");
+		Qualification qB = new Qualification("B");
+		Qualification qC = new Qualification("C");
+		HashSet<Qualification> projectQuals = new HashSet<Qualification>();
+		projectQuals.add(qA);
+		projectQuals.add(qB);
+		projectQuals.add(qC);
+		
+		Project project = cKSI.createProject("Project", projectQuals, ProjectSize.SMALL);
+		
+
+		HashSet<Qualification> workerQuals = new HashSet<Qualification>();
+		workerQuals.add(qA);
+		workerQuals.add(qB);
+		workerQuals.add(qC);
+		
+		Worker worker = new Worker("Worker", workerQuals);
+		cKSI.addToAvailableWorkerPool(worker);
+		
+		cKSI.assign(project, worker);
+		cKSI.start(project);
+		cKSI.finish(project);
+		
+		Assert.assertTrue(project.getStatus().equals(ProjectStatus.FINISHED));
+	}
+	@Test
+	public void testFinishWorkerRemoved() 
+	{
+		Qualification qA = new Qualification("A");
+		Qualification qB = new Qualification("B");
+		Qualification qC = new Qualification("C");
+		HashSet<Qualification> projectQuals = new HashSet<Qualification>();
+		projectQuals.add(qA);
+		projectQuals.add(qB);
+		projectQuals.add(qC);
+		
+		Project project = cKSI.createProject("Project", projectQuals, ProjectSize.SMALL);
+		
+
+		HashSet<Qualification> workerQuals = new HashSet<Qualification>();
+		workerQuals.add(qA);
+		workerQuals.add(qB);
+		workerQuals.add(qC);
+		
+		Worker worker = new Worker("Worker", workerQuals);
+		cKSI.addToAvailableWorkerPool(worker);
+		
+		cKSI.assign(project, worker);
+		cKSI.start(project);
+		cKSI.finish(project);
+		
+		Assert.assertTrue(worker.getProjectsAssignedTo().size() == 0);
 	}
 	
 	// Testing createProject(String, HashSet<Qualification>, ProjectSize)

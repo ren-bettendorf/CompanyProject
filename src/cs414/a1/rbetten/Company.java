@@ -93,6 +93,7 @@ public class Company {
 				{
 					assignedWorkers.add(worker);
 					worker.assignProject(project);
+					project.assignWorker(worker);
 				}
 			}
 		}
@@ -107,16 +108,20 @@ public class Company {
 		else
 		{
 			// Check to see if worker is on project
-			if(assignedWorkers.contains(worker))
+			if(assignedWorkers.contains(worker) && project.getWorkers().contains(worker))
 			{
 				// If so then remove worker from project and project from worker
-				assignedWorkers.remove(worker);
 				worker.unassignProject(project);
+				project.unassignWorker(worker);
 				
 				// Check to see if project has any missing qualifications by removing worker and is ACTIVE
 				if ( project.getStatus() == ProjectStatus.ACTIVE && project.missingQualifications().size() > 0 )
 				{
 					project.setStatus(ProjectStatus.SUSPENDED);
+				}
+				if ( worker.getProjectsAssignedTo().size() == 0 )
+				{
+					assignedWorkers.remove(worker);
 				}
 			}
 		}
@@ -130,11 +135,19 @@ public class Company {
 		}
 		else
 		{
-			// Simply call unassign for every project worker is on
-			for ( Project projectWorkerIsAssigned : worker.getProjectsAssignedTo() )
+			
+			assignedWorkers.remove(worker);
+			
+			
+			for(Project project : worker.getProjectsAssignedTo())
 			{
-				unassign(projectWorkerIsAssigned, worker);
+				project.unassignWorker(worker);
+				if(project.missingQualifications().isEmpty())
+				{
+					project.setStatus(ProjectStatus.SUSPENDED);
+				}
 			}
+			worker.getProjectsAssignedTo().clear();
 		}
 	}
 	
