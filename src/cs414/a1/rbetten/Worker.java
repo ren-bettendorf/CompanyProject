@@ -143,6 +143,7 @@ public class Worker {
 		else
 		{
 			ProjectStatus status = p.getStatus();
+			// Ensure project will not overload and project is not active or finished as all qualifications have been met
 			if( !willOverload(p) && !(status == ProjectStatus.ACTIVE || status == ProjectStatus.FINISHED ) );
 			{
 				assignedTo.add(p);

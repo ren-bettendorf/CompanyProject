@@ -35,6 +35,7 @@ public class Company {
 	{
 		HashSet<Worker> unassignedWorkers = new HashSet<Worker>();
 		
+		// Checks through availablePool for workers that are not assigned to any projects then returns set
 		for (Worker workerPool : availablePool) 
 		{
 			if( !assignedWorkers.contains(workerPool) )
@@ -71,6 +72,7 @@ public class Company {
 		}
 		else
 		{
+			// Check to see if worker is already in availablePool
 			if( !availablePool.contains(worker) )
 			{
 				availablePool.add(worker);
@@ -86,9 +88,11 @@ public class Company {
 		}
 		else
 		{
-			
+			// CHecks to see if worker is helpful to project and will not be overloaded by being added
+			// Is in the availablePool (Employee) and is not already added to project
 			if ( project.isHelpful(worker) && !worker.willOverload(project) && !worker.getProjectsAssignedTo().contains(project) && availablePool.contains(worker) )
 			{
+				// Ensure project is not already running or finished
 				if ( project.getStatus() != ProjectStatus.ACTIVE && project.getStatus() != ProjectStatus.FINISHED )
 				{
 					assignedWorkers.add(worker);
@@ -114,8 +118,8 @@ public class Company {
 				worker.unassignProject(project);
 				project.unassignWorker(worker);
 				
-				// Check to see if project has any missing qualifications by removing worker and is ACTIVE
-				if ( project.getStatus() == ProjectStatus.ACTIVE && project.missingQualifications().size() > 0 )
+				// Check to see if project has any missing qualifications by removing worker
+				if ( project.missingQualifications().size() > 0 )
 				{
 					project.setStatus(ProjectStatus.SUSPENDED);
 				}
@@ -135,18 +139,21 @@ public class Company {
 		}
 		else
 		{
-			
+			// Removing worker from Company assignedWorkers
 			assignedWorkers.remove(worker);
 			
-			
+			// Removing worker from all projects worker is assigned to
 			for(Project project : worker.getProjectsAssignedTo())
 			{
 				project.unassignWorker(worker);
-				if(project.missingQualifications().isEmpty())
+				
+				// If removing player means a project is missing qualifications it is suspended
+				if( project.missingQualifications().isEmpty() )
 				{
 					project.setStatus(ProjectStatus.SUSPENDED);
 				}
 			}
+			// Worker is no longer so clearing all projects
 			worker.getProjectsAssignedTo().clear();
 		}
 	}
@@ -159,9 +166,11 @@ public class Company {
 		}
 		else
 		{
+			// Project can only be started if it is planned or suspended
 			if ( project.getStatus() == ProjectStatus.PLANNED || project.getStatus() == ProjectStatus.SUSPENDED )
 			{
-				if ( project.missingQualifications().size() == 0)
+				// Project must have no missingQualifications
+				if ( project.missingQualifications().isEmpty() )
 				{
 					project.setStatus(ProjectStatus.ACTIVE);
 				}
@@ -177,10 +186,12 @@ public class Company {
 		}
 		else
 		{
+			// Projects can only finish if they are set to active
 			if ( project.getStatus() == ProjectStatus.ACTIVE )
 			{
 				project.setStatus(ProjectStatus.FINISHED);
 				
+				// All Workers are removed from project
 				for ( Worker workersAssignedToProject : project.getWorkers() )
 				{
 					unassign(project, workersAssignedToProject);
@@ -193,19 +204,22 @@ public class Company {
 	{
 		Project proj = null;
 		
-		// Enforce requirement that 1 to 1...* for project to qualifications
+		// Avoid NullPointerException
 		if ( _name == null || qualSet == null || size == null )
 		{
 			throw new IllegalArgumentException();
 		}
+		// Enforce requirement that 1 to 1...* for project to qualifications
 		else if ( qualSet.size() == 0 )
 		{
 			throw new IllegalArgumentException();
 		}
 		else
 		{
+			// Project is created and set to Planned
 			proj = new Project(_name, size, ProjectStatus.PLANNED);
 			projectsPool.add(proj);
+			// Adds qualifications to project
 			addQualificationsToProject(qualSet, proj);
 		}
 

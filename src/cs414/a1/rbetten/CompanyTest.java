@@ -204,6 +204,7 @@ public class CompanyTest {
 	@Test
 	public void testAssignProjectFalse() 
 	{
+		// Setting up Test
 		Qualification qA = new Qualification("A");
 		Qualification qB = new Qualification("B");
 		Qualification qC = new Qualification("C");
@@ -214,7 +215,6 @@ public class CompanyTest {
 		
 		Project project = cKSI.createProject("Project", projectQuals, ProjectSize.SMALL);
 		
-
 		HashSet<Qualification> workerQuals = new HashSet<Qualification>();
 		Qualification qFalse = new Qualification("False");
 		workerQuals.add(qFalse);
@@ -222,6 +222,7 @@ public class CompanyTest {
 		Worker worker = new Worker("Worker", workerQuals);
 		cKSI.addToAvailableWorkerPool(worker);
 		
+		// Method being tested
 		cKSI.assign(project, worker);
 		Assert.assertFalse(project.getWorkers().contains(worker) && project.getWorkers().size() == 1);
 	}
@@ -557,34 +558,6 @@ public class CompanyTest {
 	}
 	
 	// Testing finish(Project)
-	@Test
-	public void testFinishActiveTrue() 
-	{
-		Qualification qA = new Qualification("A");
-		Qualification qB = new Qualification("B");
-		Qualification qC = new Qualification("C");
-		HashSet<Qualification> projectQuals = new HashSet<Qualification>();
-		projectQuals.add(qA);
-		projectQuals.add(qB);
-		projectQuals.add(qC);
-		
-		Project project = cKSI.createProject("Project", projectQuals, ProjectSize.SMALL);
-		
-
-		HashSet<Qualification> workerQuals = new HashSet<Qualification>();
-		workerQuals.add(qA);
-		workerQuals.add(qB);
-		workerQuals.add(qC);
-		
-		Worker worker = new Worker("Worker", workerQuals);
-		cKSI.addToAvailableWorkerPool(worker);
-		
-		cKSI.assign(project, worker);
-		cKSI.start(project);
-		cKSI.finish(project);
-		
-		Assert.assertTrue(project.getStatus().equals(ProjectStatus.FINISHED));
-	}
 	@Test
 	public void testFinishWorkerRemoved() 
 	{

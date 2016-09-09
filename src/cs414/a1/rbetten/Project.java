@@ -45,12 +45,14 @@ public class Project {
 	
 	public void assignWorker(Worker w)
 	{
+		// Ensure worker is not being added to Finished project
 		if(status != ProjectStatus.FINISHED)
 		{
 			workersAssignedToProject.add(w);
 		}
 	}
 	
+	// Remove worker from project
 	public void unassignWorker(Worker w)
 	{
 		workersAssignedToProject.remove(w);
@@ -95,6 +97,7 @@ public class Project {
 		}
 		else
 		{
+			// Check to see if worker can help with any qualifications project is missing
 			for( Qualification workerQualification : w.getQualifications() )
 			{
 				if ( missingQualifications().contains(workerQualification) )
@@ -115,6 +118,7 @@ public class Project {
 		}
 		else
 		{
+			// Ensure project is not finished to add qualification
 			if(status != ProjectStatus.FINISHED)
 			{
 				requires.add(q);
