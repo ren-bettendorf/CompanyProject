@@ -1,5 +1,7 @@
 package cs414.a1.rbetten;
 
+import java.util.HashSet;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +24,7 @@ public class ProjectTest {
 		projectActive = new Project("ProjectActive", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
 		projectActive.setStatus(ProjectStatus.ACTIVE);
 		
-		HashSet<Qualifications> workerQualifications = new HashSet<Qualifications>();
+		HashSet<Qualification> workerQualifications = new HashSet<Qualification>();
 		Qualification q1 = new Qualification("Planning");
 		Qualification q2 = new Qualification("Learning");
 		Qualification q3 = new Qualification("Coding");
@@ -75,13 +77,13 @@ public class ProjectTest {
 	@Test
 	public void testToStringActiveStatus() 
 	{
-		String expected = "ProjectedActive:0:ACTIVE";
+		String expected = "ProjectActive:0:ACTIVE";
 		Assert.assertTrue(projectActive.toString().equals(expected));
 	}
 	@Test
 	public void testToStringWorkers() 
 	{
-		String expected = "Proj2:2:ACTIVE";
+		String expected = "Proj2:2:PLANNED";
 		Assert.assertTrue(p2.toString().equals(expected));
 	}
 	
@@ -89,7 +91,7 @@ public class ProjectTest {
 	@Test
 	public void testMissingQualificationMissingNone() 
 	{
-		Assert.assertTrue(p1.missingQualification().equals(new HashSet<Qualification>()));
+		Assert.assertTrue(p1.missingQualifications().equals(new HashSet<Qualification>()));
 	}
 	@Test
 	public void testMissingQualificationMissingOne() 
@@ -97,23 +99,24 @@ public class ProjectTest {
 		HashSet<Qualification> expected = new HashSet<Qualification>();
 		Qualification q4 = new Qualification("Another");
 		expected.add(q4);
-		
-		Assert.assertTrue(p2.missingQualification().equals(expected));
+		Project project = new Project("Project", ProjectSize.MEDIUM, ProjectStatus.ACTIVE);
+		project.addQualification(q4);
+		Assert.assertTrue(project.missingQualifications().equals(expected));
 	}
 	@Test
 	public void testMissingQualificationIgnoreOrder() 
 	{
-		Project projectOrderIgnored = new Project("ProjectOrderIgnored", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
-		projectOrderIgnored.addQualification(qB);
-		projectOrderIgnored.addQualification(qA);
-		
 		HashSet<Qualification> expected = new HashSet<Qualification>();
 		Qualification qA = new Qualification("A");
 		Qualification qB = new Qualification("B");
 		expected.add(qA);
 		expected.add(qB);
 		
-		Assert.assertTrue(projectOrderIgnored.missingQualification().equals(expected));
+		Project projectOrderIgnored = new Project("ProjectOrderIgnored", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
+		projectOrderIgnored.addQualification(qB);
+		projectOrderIgnored.addQualification(qA);
+		
+		Assert.assertTrue(projectOrderIgnored.missingQualifications().equals(expected));
 	}
 	
 	// Testing isHelpful()
@@ -123,8 +126,10 @@ public class ProjectTest {
 		HashSet<Qualification> helpfulSet = new HashSet<Qualification>();
 		Qualification qAnother = new Qualification("Another");
 		helpfulSet.add(qAnother);
+		Project project = new Project("Project", ProjectSize.SMALL, ProjectStatus.ACTIVE);
+		project.addQualification(qAnother);
 		Worker helpfulWorker = new Worker("helpful worker", helpfulSet);
-		Assert.assertTrue(p2.isHelpful(helpfulWorker));
+		Assert.assertTrue(project.isHelpful(helpfulWorker));
 	}
 	@Test
 	public void testIsHelpfulFalse() 

@@ -16,14 +16,14 @@ public class WorkerTest {
 	HashSet<Qualification> originalQuals;
 	HashSet<Qualification> qualifications;
 	
+	Project lProject1;
+	Project lProject2;
+	Project lProject3;	
+	Project mProject1;
+	
 	@Before
 	public void setUp() throws Exception 
 	{	
-		originalQuals = new HashSet<Qualification>();
-		for(Qualification q : wWill.getQualifications())
-		{
-			originalQuals.add(q);
-		}
 		qualifications = new HashSet<Qualification>();
 		qualifications.add(new Qualification("Program"));
 		qualifications.add(new Qualification("Plan"));
@@ -34,10 +34,10 @@ public class WorkerTest {
 		wTina.setSalary(10000);
 		wNoah = new Worker("Noah", qualifications);
 
-		Project lProject1 = new Project("LargeProject 1", ProjectSize.LARGE, ProjectStatus.PLANNED);
-		Project lProject2 = new Project("LargeProject 2", ProjectSize.LARGE, ProjectStatus.PLANNED);
-		Project lProject3 = new Project("LargeProject 3", ProjectSize.LARGE, ProjectStatus.PLANNED);	
-		Project mProject1 = new Project("MediumProject 1", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
+		lProject1 = new Project("LargeProject 1", ProjectSize.LARGE, ProjectStatus.PLANNED);
+		lProject2 = new Project("LargeProject 2", ProjectSize.LARGE, ProjectStatus.PLANNED);
+		lProject3 = new Project("LargeProject 3", ProjectSize.LARGE, ProjectStatus.PLANNED);	
+		mProject1 = new Project("MediumProject 1", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
 		
 		// Ensure almost maxed out projects assigned
 		wWill.assignProject(lProject1);
@@ -49,6 +49,12 @@ public class WorkerTest {
 		lProject2.setStatus(ProjectStatus.ACTIVE);
 		lProject3.setStatus(ProjectStatus.ACTIVE);
 		mProject1.setStatus(ProjectStatus.ACTIVE);
+		
+		originalQuals = new HashSet<Qualification>();
+		for(Qualification q : wWill.getQualifications())
+		{
+			originalQuals.add(q);
+		}
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -148,11 +154,10 @@ public class WorkerTest {
 	@Test
 	public void testWillOverloadTrue()
 	{
-		wWill.assignProject(sProject1);
-		Project sProject2 = new Project("SmallProject 2", ProjectSize.SMALL, ProjectStatus.PLANNED);
-		sProject2.setStatus(ProjectStatus.ACTIVE);
+		Project mProject2 = new Project("SmallProject 2", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
+		mProject2.setStatus(ProjectStatus.ACTIVE);
 		
-		Assert.assertTrue(wWill.willOverload(sProject2));
+		Assert.assertTrue(wWill.willOverload(mProject2));
 	}
 	@Test(expected = IllegalArgumentException.class)
 	public void testWillOverloadNull()

@@ -14,6 +14,8 @@ public class CompanyTest {
 	
 	HashSet<Qualification> willQuals;
 	
+	Worker will;
+	
 	@Before
 	public void setUp() throws Exception 
 	{
@@ -24,7 +26,7 @@ public class CompanyTest {
 		
 		willQuals = new HashSet<Qualification>();
 		willQuals.add(new Qualification("Program"));
-		Worker will = new Worker("Will", willQuals);
+		will = new Worker("Will", willQuals);
 		
 		//HashSet<Qualification> tinaQuals = new HashSet<Qualification>();
 		willQuals.add(new Qualification("Testing"));
@@ -83,7 +85,7 @@ public class CompanyTest {
 		HashSet<Worker> expected = new HashSet<Worker>();
 		expected.add(will);
 		cAmazon.addToAvailableWorkerPool(will);
-		Assert.assertTrue(cAmazon.getAvailableWorkers.equals(expected));
+		Assert.assertTrue(cAmazon.getAvailableWorkers().equals(expected));
 	}
 	@Test
 	public void testAddToAvailableWorkerPoolAddingSamePersonTwice()
@@ -91,10 +93,10 @@ public class CompanyTest {
 		HashSet<Worker> expected = new HashSet<Worker>();
 		expected.add(will);
 		cAmazon.addToAvailableWorkerPool(will);
-		Assert.assertTrue(cAmazon.getAvailableWorkers.equals(expected));
+		Assert.assertTrue(cAmazon.getAvailableWorkers().equals(expected));
 	}
 	@Test(expected = IllegalArgumentException.class)
-	public void testCreateProjectStringNull() 
+	public void testAddToAvailableWorkerPoolWorkerNull() 
 	{
 		cKSI.addToAvailableWorkerPool(null);
 	}
@@ -106,7 +108,7 @@ public class CompanyTest {
 		Assert.assertTrue(true);
 	}
 	@Test(expected = IllegalArgumentException.class)
-	public void testAssignProjectNull() 
+	public void testAssignWorkerNull() 
 	{
 		Project proj = new Project("P", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
 		cKSI.assign(proj, null);
@@ -142,7 +144,7 @@ public class CompanyTest {
 		Assert.assertTrue(true);
 	}
 	@Test(expected = IllegalArgumentException.class)
-	public void testCreateProjectStringNull() 
+	public void testUnassignAllWorkerNull() 
 	{
 		cKSI.unassignAll(null);
 	}
@@ -172,16 +174,16 @@ public class CompanyTest {
 	@Test
 	public void testStartFinishedTrue() 
 	{
-		Project project = new Project("True Project", ProjectSize.MEDIUM, ProjectStatus.FINISH);
+		Project project = new Project("True Project", ProjectSize.MEDIUM, ProjectStatus.FINISHED);
 		cKSI.start(project);
-		Assert.assertTrue(project.getStatus().equals(ProjectStatus.FINISH));
+		Assert.assertTrue(project.getStatus().equals(ProjectStatus.FINISHED));
 	}
 	@Test
 	public void testStartPlannedFalse() 
 	{
 		Project project = new Project("True Project", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
 		Qualification q = new Qualification("Q");
-		project.add(q);
+		project.addQualification(q);
 		cKSI.start(project);
 		Assert.assertFalse(project.getStatus().equals(ProjectStatus.ACTIVE));
 	}
@@ -190,12 +192,12 @@ public class CompanyTest {
 	{
 		Project project = new Project("True Project", ProjectSize.MEDIUM, ProjectStatus.PLANNED);
 		Qualification q = new Qualification("Q");
-		project.add(q);
+		project.addQualification(q);
 		cKSI.start(project);
 		Assert.assertFalse(project.getStatus().equals(ProjectStatus.ACTIVE));
 	}
 	@Test(expected = IllegalArgumentException.class)
-	public void testCreateProjectStringNull() 
+	public void testStartProjectNull() 
 	{
 		cKSI.start(null);
 	}
